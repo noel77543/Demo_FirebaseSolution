@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "169269451919",
+    "firebase_url": "https://firbasesolution.firebaseio.com",
+    "project_id": "firbasesolution",
+    "storage_bucket": "firbasesolution.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169269451919:android:74799ee350deb66a",
+        "android_client_info": {
+          "package_name": "tw.noel.sung.com.demo_firebasesolution"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169269451919-2vr0bfr3srl7pqrqmplkmupled72v8mg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK0v7QcIHOeb23d3TE-hCUdVRB7S0W7vA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
