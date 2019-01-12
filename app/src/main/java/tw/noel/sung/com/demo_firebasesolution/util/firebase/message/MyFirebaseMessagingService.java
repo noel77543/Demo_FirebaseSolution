@@ -1,4 +1,4 @@
-package tw.noel.sung.com.demo_firebasesolution.util.message;
+package tw.noel.sung.com.demo_firebasesolution.util.firebase.message;
 
 
 import com.google.firebase.messaging.FirebaseMessagingService;

@@ -1,4 +1,4 @@
-package tw.noel.sung.com.demo_firebasesolution.util.analytics;
+package tw.noel.sung.com.demo_firebasesolution.util.firebase.analytics;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import tw.noel.sung.com.demo_firebasesolution.util.application.FirebaseSolutionApplication;
 
 
 /**
@@ -75,7 +77,7 @@ public class MyFirebaseEventCenter {
      *  firebase 初始化
      */
     private void initFirebase() {
-        firebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        firebaseAnalytics = FirebaseSolutionApplication.firebaseAnalytics;
     }
     //----------------
 

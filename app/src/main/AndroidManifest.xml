@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
+        android:name=".util.application.FirebaseSolutionApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -17,14 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".db.DataBaseActivity"
-            android:screenOrientation="portrait" />
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="ac6621a3fd5ff41bd20d6706ae0a39af77bd579d" />
 
-        <service android:name=".util.message.MyFirebaseMessagingService">
+        <!--<meta-data-->
+            <!--android:name="io.fabric.ApiKey"-->
+            <!--android:value="ac6621a3fd5ff41bd20d6706ae0a39af77bd579d" />-->
+
+        <service android:name=".util.firebase.message.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
