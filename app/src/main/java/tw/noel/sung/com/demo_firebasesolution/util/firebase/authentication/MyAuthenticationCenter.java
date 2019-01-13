@@ -104,24 +104,6 @@ public class MyAuthenticationCenter {
         }
     }
 
-    //---------------
-
-    /***
-     *  將 驗證碼及新密碼輸入 進行更改
-     */
-    public void confirmResetPassword(String code, String newPassword) {
-        if (code.length() > 0 && newPassword.length() > 0) {
-            firebaseAuth.confirmPasswordReset(code, newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-
-                    if (onAuthenticationTaskHappenListener != null) {
-                        onAuthenticationTaskHappenListener.onConfirmResetPassword(task.isSuccessful());
-                    }
-                }
-            });
-        }
-    }
     //------------------
 
     public void setOnAuthenticationTaskHappenListener(OnAuthenticationTaskHappenListener onAuthenticationTaskHappenListener) {
@@ -136,8 +118,6 @@ public class MyAuthenticationCenter {
         void onLogin(boolean isSuccess);
 
         void onSentResetPasswordEmail(boolean isSuccess);
-
-        void onConfirmResetPassword(boolean isSuccess);
     }
 
 

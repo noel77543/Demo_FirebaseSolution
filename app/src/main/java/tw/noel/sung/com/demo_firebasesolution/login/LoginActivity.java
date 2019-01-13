@@ -2,6 +2,7 @@ package tw.noel.sung.com.demo_firebasesolution.login;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,12 +13,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tw.noel.sung.com.demo_firebasesolution.R;
 import tw.noel.sung.com.demo_firebasesolution.login.actionbar.ActionBarController;
-import tw.noel.sung.com.demo_firebasesolution.util.dialog.CheckCodeDialog;
 import tw.noel.sung.com.demo_firebasesolution.util.dialog.ForgetMailDialog;
 import tw.noel.sung.com.demo_firebasesolution.util.firebase.analytics.MyFirebaseEventCenter;
 import tw.noel.sung.com.demo_firebasesolution.util.firebase.authentication.MyAuthenticationCenter;
 
-public class LoginActivity extends FragmentActivity implements MyAuthenticationCenter.OnAuthenticationTaskHappenListener, ForgetMailDialog.OnSentMailListener, CheckCodeDialog.OnAgreeChangePasswordListener {
+public class LoginActivity extends FragmentActivity implements MyAuthenticationCenter.OnAuthenticationTaskHappenListener, ForgetMailDialog.OnSentMailListener {
 
 
     @BindView(R.id.view_action_bar)
@@ -31,9 +31,10 @@ public class LoginActivity extends FragmentActivity implements MyAuthenticationC
     @BindView(R.id.button_register)
     Button buttonRegister;
 
-    private MyFirebaseEventCenter myFirebaseEventCenter;
     private ActionBarController actionBarController;
     private MyAuthenticationCenter myAuthenticationCenter;
+    private ForgetMailDialog forgetMailDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +42,7 @@ public class LoginActivity extends FragmentActivity implements MyAuthenticationC
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         myAuthenticationCenter = new MyAuthenticationCenter(this);
-        myFirebaseEventCenter = new MyFirebaseEventCenter(this);
         actionBarController = new ActionBarController(this, viewActionBar);
-
-
 
         myAuthenticationCenter.setOnAuthenticationTaskHappenListener(this);
     }
@@ -64,7 +62,8 @@ public class LoginActivity extends FragmentActivity implements MyAuthenticationC
                 break;
             //忘記密碼
             case R.id.button_forget:
-                new ForgetMailDialog(this).setOnSentMailListener(this).show();
+                forgetMailDialog = new ForgetMailDialog(this).setOnSentMailListener(this);
+                forgetMailDialog.show();
                 break;
         }
     }
@@ -101,6 +100,7 @@ public class LoginActivity extends FragmentActivity implements MyAuthenticationC
             message = "登入失敗";
         }
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        finish();
     }
     //-----------
 
@@ -110,31 +110,16 @@ public class LoginActivity extends FragmentActivity implements MyAuthenticationC
      */
     @Override
     public void onSentResetPasswordEmail(boolean isSuccess) {
+        forgetMailDialog.dismiss();
         String message;
         if (isSuccess) {
             message = "已發送驗證信至您的信箱";
-            new CheckCodeDialog(this).setOnAgreeChangePasswordListener(this).show();
         } else {
             message = "驗證信發送失敗";
         }
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
-    //-----------
 
-    /***
-     *   更改密碼成功與否
-     * @param isSuccess
-     */
-    @Override
-    public void onConfirmResetPassword(boolean isSuccess) {
-        String message;
-        if (isSuccess) {
-            message = "已成功更改密碼";
-        } else {
-            message = "更改密碼失敗";
-        }
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
     //-----------
 
     /***
@@ -144,16 +129,5 @@ public class LoginActivity extends FragmentActivity implements MyAuthenticationC
     @Override
     public void onSent(String email) {
         myAuthenticationCenter.sentResetPasswordEmail(email);
-    }
-    //-----------
-
-    /***
-     * 當按下確認更改密碼
-     * @param code
-     * @param newPassword
-     */
-    @Override
-    public void onAgreeChangePassword(String code, String newPassword) {
-        myAuthenticationCenter.confirmResetPassword(code, newPassword);
     }
 }
