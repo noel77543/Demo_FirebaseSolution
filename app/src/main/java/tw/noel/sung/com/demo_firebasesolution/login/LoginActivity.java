@@ -24,6 +24,8 @@ public class LoginActivity extends FragmentActivity {
     EditText editTextPassword;
     @BindView(R.id.button_login)
     Button buttonLogin;
+    @BindView(R.id.button_register)
+    Button buttonRegister;
 
     private MyFirebaseEventCenter myFirebaseEventCenter;
     private ActionBarController actionBarController;

@@ -16,6 +16,7 @@ import butterknife.OnClick;
 import tw.noel.sung.com.demo_firebasesolution.R;
 import tw.noel.sung.com.demo_firebasesolution.login.LoginActivity;
 import tw.noel.sung.com.demo_firebasesolution.util.application.FirebaseSolutionApplication;
+import tw.noel.sung.com.demo_firebasesolution.util.firebase.authentication.MyAuthenticationCenter;
 
 public class NavigationController {
 
@@ -27,25 +28,25 @@ public class NavigationController {
     Button buttonSent;
 
     private Context context;
+    private MyAuthenticationCenter myAuthenticationCenter;
 
     public NavigationController(Context context, View view) {
         ButterKnife.bind(this, view);
         this.context = context;
+        myAuthenticationCenter = new MyAuthenticationCenter(context);
     }
 
     //------------------------------
 
     @OnClick(R.id.button_sent)
     public void OnClicked(View view) {
-        //未登入
-        if (FirebaseSolutionApplication.firebaseAuth.getCurrentUser() == null) {
+        //已登入
+        if (myAuthenticationCenter.isLogin()) {
+            if (editText.getText().toString().length() > 0) {
+
+            }
+        } else {
             context.startActivity(new Intent(context, LoginActivity.class));
-            return;
-        }
-
-
-        if (editText.getText().toString().length() > 0) {
-
         }
     }
 
