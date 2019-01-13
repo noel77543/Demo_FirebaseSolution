@@ -13,12 +13,14 @@ import tw.noel.sung.com.demo_firebasesolution.util.application.FirebaseSolutionA
 
 public class MyAuthenticationCenter {
 
+    private OnAuthenticationTaskHappenListener onAuthenticationTaskHappenListener;
     private FirebaseAuth firebaseAuth;
     private Context context;
 
     public MyAuthenticationCenter(Context context) {
         this.context = context;
         firebaseAuth = FirebaseSolutionApplication.firebaseAuth;
+
     }
 
     //-----------
@@ -40,19 +42,24 @@ public class MyAuthenticationCenter {
      * @param password
      */
     public void login(String email, String password) {
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                String message;
-                //成功登入
-                if (task.isSuccessful()) {
-                    message = "登入成功";
-                } else {
-                    message = "登入失敗";
+        if (email.length() > 0 && password.length() > 0) {
+            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (onAuthenticationTaskHappenListener != null) {
+                        onAuthenticationTaskHappenListener.onLogin(task.isSuccessful());
+                    }
                 }
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-            }
-        });
+            });
+        }
+    }
+    //-----------
+
+    /***
+     *  登出
+     */
+    public void logout() {
+        firebaseAuth.signOut();
     }
 
 
@@ -63,21 +70,75 @@ public class MyAuthenticationCenter {
      * @param email
      * @param password
      */
-    private void register(final String email, final String password) {
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(
-                        new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                String message;
-                                //成功註冊
-                                if (task.isSuccessful()) {
-                                    message = "註冊成功";
-                                } else {
-                                    message = "註冊失敗";
+    public void register(final String email, final String password) {
+        if (email.length() > 0 && password.length() > 0) {
+            firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(
+                            new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                    if (onAuthenticationTaskHappenListener != null) {
+                                        onAuthenticationTaskHappenListener.onRegistered(task.isSuccessful());
+                                    }
                                 }
-                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                            });
+        }
     }
+
+    //-----------------
+
+    /***
+     * 發送忘記密碼的驗證碼至Email
+     */
+    public void sentResetPasswordEmail(String email) {
+        if (email.length() > 0) {
+            firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (onAuthenticationTaskHappenListener != null) {
+                        onAuthenticationTaskHappenListener.onSentResetPasswordEmail(task.isSuccessful());
+                    }
+                }
+            });
+        }
+    }
+
+    //---------------
+
+    /***
+     *  將 驗證碼及新密碼輸入 進行更改
+     */
+    public void confirmResetPassword(String code, String newPassword) {
+        if (code.length() > 0 && newPassword.length() > 0) {
+            firebaseAuth.confirmPasswordReset(code, newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    if (onAuthenticationTaskHappenListener != null) {
+                        onAuthenticationTaskHappenListener.onConfirmResetPassword(task.isSuccessful());
+                    }
+                }
+            });
+        }
+    }
+    //------------------
+
+    public void setOnAuthenticationTaskHappenListener(OnAuthenticationTaskHappenListener onAuthenticationTaskHappenListener) {
+        this.onAuthenticationTaskHappenListener = onAuthenticationTaskHappenListener;
+    }
+
+    //------------------
+
+    public interface OnAuthenticationTaskHappenListener {
+        void onRegistered(boolean isSuccess);
+
+        void onLogin(boolean isSuccess);
+
+        void onSentResetPasswordEmail(boolean isSuccess);
+
+        void onConfirmResetPassword(boolean isSuccess);
+    }
+
+
 }
