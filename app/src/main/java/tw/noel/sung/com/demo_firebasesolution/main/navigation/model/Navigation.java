@@ -1,4 +1,4 @@
-package tw.noel.sung.com.demo_firebasesolution.navigation.model;
+package tw.noel.sung.com.demo_firebasesolution.main.navigation.model;
 
 
 import java.util.List;

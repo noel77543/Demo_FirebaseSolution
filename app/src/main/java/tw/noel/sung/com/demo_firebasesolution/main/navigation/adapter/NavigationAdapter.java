@@ -1,4 +1,4 @@
-package tw.noel.sung.com.demo_firebasesolution.navigation.adapter;
+package tw.noel.sung.com.demo_firebasesolution.main.navigation.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tw.noel.sung.com.demo_firebasesolution.R;
-import tw.noel.sung.com.demo_firebasesolution.navigation.model.Navigation;
+import tw.noel.sung.com.demo_firebasesolution.main.navigation.model.Navigation;
 
 public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.ViewHolder> {
 
