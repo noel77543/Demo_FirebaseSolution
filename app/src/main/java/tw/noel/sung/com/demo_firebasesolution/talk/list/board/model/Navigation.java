@@ -1,8 +1,11 @@
-package tw.noel.sung.com.demo_firebasesolution.main.navigation.model;
+package tw.noel.sung.com.demo_firebasesolution.talk.list.board.model;
 
 
 import java.util.List;
 
+/**
+ * Created by noel on 2019/1/12.
+ */
 public class Navigation {
 
 

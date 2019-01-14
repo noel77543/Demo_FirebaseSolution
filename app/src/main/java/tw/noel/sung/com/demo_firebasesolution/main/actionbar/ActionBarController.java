@@ -10,6 +10,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tw.noel.sung.com.demo_firebasesolution.R;
 
+/**
+ * Created by noel on 2019/1/13.
+ */
 public class ActionBarController {
 
     @BindView(R.id.button_menu)

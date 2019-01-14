@@ -18,36 +18,15 @@ import tw.noel.sung.com.demo_firebasesolution.login.LoginActivity;
 import tw.noel.sung.com.demo_firebasesolution.util.application.FirebaseSolutionApplication;
 import tw.noel.sung.com.demo_firebasesolution.util.firebase.authentication.MyAuthenticationCenter;
 
+/**
+ * Created by noel on 2019/1/13.
+ */
 public class NavigationController {
 
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
-    @BindView(R.id.edit_text)
-    EditText editText;
-    @BindView(R.id.button_sent)
-    Button buttonSent;
-
-    private Context context;
-    private MyAuthenticationCenter myAuthenticationCenter;
 
     public NavigationController(Context context, View view) {
         ButterKnife.bind(this, view);
-        this.context = context;
-        myAuthenticationCenter = new MyAuthenticationCenter(context);
     }
 
-    //------------------------------
-
-    @OnClick(R.id.button_sent)
-    public void OnClicked(View view) {
-        //已登入
-        if (myAuthenticationCenter.isLogin()) {
-            if (editText.getText().toString().length() > 0) {
-
-            }
-        } else {
-            context.startActivity(new Intent(context, LoginActivity.class));
-        }
-    }
 
 }

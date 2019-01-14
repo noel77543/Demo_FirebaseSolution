@@ -7,6 +7,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Created by noel on 2019/1/12.
+ */
 public class FirebaseSolutionApplication extends Application {
     public static FirebaseAnalytics firebaseAnalytics;
     public static DatabaseReference databaseReference;

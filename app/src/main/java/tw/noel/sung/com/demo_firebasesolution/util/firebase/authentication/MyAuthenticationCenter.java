@@ -11,6 +11,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import tw.noel.sung.com.demo_firebasesolution.util.application.FirebaseSolutionApplication;
 
+/**
+ * Created by noel on 2019/1/12.
+ */
 public class MyAuthenticationCenter {
 
     private OnAuthenticationTaskHappenListener onAuthenticationTaskHappenListener;

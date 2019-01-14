@@ -1,5 +1,6 @@
 package tw.noel.sung.com.demo_firebasesolution.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -10,11 +11,16 @@ import android.view.View;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tw.noel.sung.com.demo_firebasesolution.R;
 import tw.noel.sung.com.demo_firebasesolution.main.actionbar.ActionBarController;
 import tw.noel.sung.com.demo_firebasesolution.main.navigation.NavigationController;
+import tw.noel.sung.com.demo_firebasesolution.talk.TalkActivity;
 import tw.noel.sung.com.demo_firebasesolution.util.firebase.analytics.MyFirebaseEventCenter;
 
+/**
+ * Created by noel on 2019/1/12.
+ */
 public class MainActivity extends FragmentActivity implements ActionBarController.OnMenuClickListener, DrawerLayout.DrawerListener {
 
     @BindView(R.id.drawer_layout)
@@ -34,11 +40,19 @@ public class MainActivity extends FragmentActivity implements ActionBarControlle
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         myFirebaseEventCenter = new MyFirebaseEventCenter(this);
-        navigationController = new NavigationController(this,viewNavigation);
-        actionBarController = new ActionBarController(this,viewActionBar);
+        navigationController = new NavigationController(this, viewNavigation);
+        actionBarController = new ActionBarController(this, viewActionBar);
         actionBarController.setOnMenuClickListener(this);
         drawerLayout.addDrawerListener(this);
     }
+
+    //-------------
+
+    @OnClick(R.id.button_talk)
+    public void OnClicked(View view) {
+        startActivity(new Intent(this, TalkActivity.class));
+    }
+
 
     //-------------
 

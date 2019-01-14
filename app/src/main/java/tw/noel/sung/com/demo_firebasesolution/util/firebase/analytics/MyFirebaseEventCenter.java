@@ -14,7 +14,7 @@ import tw.noel.sung.com.demo_firebasesolution.util.application.FirebaseSolutionA
 
 
 /**
- * Created by noel on 2018/5/26.
+ * Created by noel on 2019/1/12.
  */
 
 public class MyFirebaseEventCenter {

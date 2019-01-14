@@ -1,4 +1,4 @@
-package tw.noel.sung.com.demo_firebasesolution.main.navigation.adapter;
+package tw.noel.sung.com.demo_firebasesolution.talk.list.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,16 +13,19 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tw.noel.sung.com.demo_firebasesolution.R;
-import tw.noel.sung.com.demo_firebasesolution.main.navigation.model.Navigation;
+import tw.noel.sung.com.demo_firebasesolution.talk.list.board.model.Navigation;
 
-public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.ViewHolder> {
+/**
+ * Created by noel on 2019/1/14.
+ */
+public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
     private ArrayList<Navigation.BoardBean> boardBeans;
     private LayoutInflater layoutInflater;
     private OnItemClickListener onItemClickListener;
     //-------
 
-    public NavigationAdapter(Context context) {
+    public RoomAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
         boardBeans = new ArrayList<>();
     }
@@ -38,13 +41,13 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.Vi
     //-------
     @NonNull
     @Override
-    public NavigationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public RoomAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         return new ViewHolder(layoutInflater.inflate(R.layout.list_data, viewGroup, false));
     }
     //-------
 
     @Override
-    public void onBindViewHolder(@NonNull NavigationAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder viewHolder, int position) {
         Navigation.BoardBean boardBean = boardBeans.get(position);
         viewHolder.textViewMessage.setText(boardBean.getMessage());
         viewHolder.textViewName.setText(boardBean.getName());

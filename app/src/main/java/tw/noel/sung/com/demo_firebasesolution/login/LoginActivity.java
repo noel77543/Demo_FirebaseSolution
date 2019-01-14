@@ -1,5 +1,6 @@
 package tw.noel.sung.com.demo_firebasesolution.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -13,10 +14,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tw.noel.sung.com.demo_firebasesolution.R;
 import tw.noel.sung.com.demo_firebasesolution.login.actionbar.ActionBarController;
+import tw.noel.sung.com.demo_firebasesolution.main.MainActivity;
 import tw.noel.sung.com.demo_firebasesolution.util.dialog.ForgetMailDialog;
 import tw.noel.sung.com.demo_firebasesolution.util.firebase.analytics.MyFirebaseEventCenter;
 import tw.noel.sung.com.demo_firebasesolution.util.firebase.authentication.MyAuthenticationCenter;
 
+/**
+ * Created by noel on 2019/1/14.
+ */
 public class LoginActivity extends FragmentActivity implements MyAuthenticationCenter.OnAuthenticationTaskHappenListener, ForgetMailDialog.OnSentMailListener {
 
 
@@ -100,6 +105,7 @@ public class LoginActivity extends FragmentActivity implements MyAuthenticationC
             message = "登入失敗";
         }
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
     //-----------

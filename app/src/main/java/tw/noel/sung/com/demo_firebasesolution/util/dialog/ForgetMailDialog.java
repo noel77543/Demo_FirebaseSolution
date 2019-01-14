@@ -14,6 +14,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tw.noel.sung.com.demo_firebasesolution.R;
 
+/**
+ * Created by noel on 2019/1/14.
+ */
 public class ForgetMailDialog extends Dialog {
 
     @BindView(R.id.edit_text_mail)

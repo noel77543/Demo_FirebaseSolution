@@ -7,7 +7,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Map;
 
 /**
- * Created by noel on 2018/5/28.
+ * Created by noel on 2019/1/14.
  */
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {

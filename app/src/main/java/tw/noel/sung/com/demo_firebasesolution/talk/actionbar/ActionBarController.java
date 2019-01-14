@@ -1,4 +1,4 @@
-package tw.noel.sung.com.demo_firebasesolution.login.actionbar;
+package tw.noel.sung.com.demo_firebasesolution.talk.actionbar;
 
 import android.content.Context;
 import android.view.View;
@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import tw.noel.sung.com.demo_firebasesolution.R;
 
 /**
