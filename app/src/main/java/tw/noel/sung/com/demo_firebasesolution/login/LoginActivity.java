@@ -18,6 +18,7 @@ import tw.noel.sung.com.demo_firebasesolution.main.MainActivity;
 import tw.noel.sung.com.demo_firebasesolution.util.dialog.ForgetMailDialog;
 import tw.noel.sung.com.demo_firebasesolution.util.firebase.analytics.MyFirebaseEventCenter;
 import tw.noel.sung.com.demo_firebasesolution.util.firebase.authentication.MyAuthenticationCenter;
+import tw.noel.sung.com.demo_firebasesolution.util.firebase.database.MyFirebaseDataBaseCenter;
 
 /**
  * Created by noel on 2019/1/14.
@@ -38,6 +39,7 @@ public class LoginActivity extends FragmentActivity implements MyAuthenticationC
 
     private ActionBarController actionBarController;
     private MyAuthenticationCenter myAuthenticationCenter;
+    private MyFirebaseDataBaseCenter myFirebaseDataBaseCenter;
     private ForgetMailDialog forgetMailDialog;
 
 
@@ -47,6 +49,7 @@ public class LoginActivity extends FragmentActivity implements MyAuthenticationC
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         myAuthenticationCenter = new MyAuthenticationCenter(this);
+        myFirebaseDataBaseCenter = new MyFirebaseDataBaseCenter();
         actionBarController = new ActionBarController(this, viewActionBar);
 
         myAuthenticationCenter.setOnAuthenticationTaskHappenListener(this);
@@ -84,6 +87,8 @@ public class LoginActivity extends FragmentActivity implements MyAuthenticationC
         String message;
         if (isSuccess) {
             message = "註冊成功";
+            myFirebaseDataBaseCenter.addUser(myAuthenticationCenter.getUserId(), myAuthenticationCenter.getEmail());
+
         } else {
             message = "註冊失敗";
         }
@@ -101,12 +106,12 @@ public class LoginActivity extends FragmentActivity implements MyAuthenticationC
         String message;
         if (isSuccess) {
             message = "登入成功";
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
         } else {
             message = "登入失敗";
         }
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
     }
     //-----------
 

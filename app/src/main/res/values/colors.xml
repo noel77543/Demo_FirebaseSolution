@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="edit_bg">#7e959595</color>
+    <color name="room_list_bg">#3fa3a3a3</color>
 </resources>

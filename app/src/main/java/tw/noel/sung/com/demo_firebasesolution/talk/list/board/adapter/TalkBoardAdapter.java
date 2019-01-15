@@ -3,6 +3,7 @@ package tw.noel.sung.com.demo_firebasesolution.talk.list.board.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,51 +14,54 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tw.noel.sung.com.demo_firebasesolution.R;
-import tw.noel.sung.com.demo_firebasesolution.talk.list.board.model.Navigation;
+import tw.noel.sung.com.demo_firebasesolution.talk.list.board.model.Board;
 
 /**
  * Created by noel on 2019/1/12.
  */
-public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.ViewHolder> {
+public class TalkBoardAdapter extends RecyclerView.Adapter<TalkBoardAdapter.ViewHolder> {
 
-    private ArrayList<Navigation.BoardBean> boardBeans;
+    private ArrayList<Board> boards;
     private LayoutInflater layoutInflater;
     private OnItemClickListener onItemClickListener;
     //-------
 
-    public NavigationAdapter(Context context) {
+    public TalkBoardAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
-        boardBeans = new ArrayList<>();
+        boards = new ArrayList<>();
     }
 
     //-------
 
-    public void setData(ArrayList<Navigation.BoardBean> boardBeans) {
-        this.boardBeans = boardBeans;
-        notifyDataSetChanged();
+    public void setData(ArrayList<Board> boards) {
+        if(boards != null){
+            this.boards = boards;
+            notifyDataSetChanged();
+        }
     }
 
 
     //-------
     @NonNull
     @Override
-    public NavigationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        return new ViewHolder(layoutInflater.inflate(R.layout.list_data, viewGroup, false));
+    public TalkBoardAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        return new ViewHolder(layoutInflater.inflate(R.layout.list_message, viewGroup, false));
     }
+
     //-------
 
     @Override
-    public void onBindViewHolder(@NonNull NavigationAdapter.ViewHolder viewHolder, int position) {
-        Navigation.BoardBean boardBean = boardBeans.get(position);
-        viewHolder.textViewMessage.setText(boardBean.getMessage());
-        viewHolder.textViewName.setText(boardBean.getName());
-        viewHolder.textViewTime.setText(boardBean.getTime());
+    public void onBindViewHolder(@NonNull TalkBoardAdapter.ViewHolder viewHolder, int position) {
+        Board board = boards.get(position);
+        viewHolder.textViewMessage.setText(board.getMessage());
+        viewHolder.textViewName.setText(board.getName());
+        viewHolder.textViewTime.setText(board.getTime());
     }
     //-------
 
     @Override
     public int getItemCount() {
-        return boardBeans.size();
+        return boards.size();
     }
 
     //-------

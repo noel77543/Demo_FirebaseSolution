@@ -3,25 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:orientation="vertical">
+    android:background="@color/room_list_bg"
+    android:orientation="vertical"
+    android:padding="3dp">
 
     <TextView
         android:id="@+id/text_view_name"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:gravity="start|center_vertical" />
+        android:gravity="start|center_vertical"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/text_view_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingEnd="5dp"
-        android:paddingStart="5dp" />
+        android:textColor="@android:color/white" />
 
     <TextView
+        android:id="@+id/text_view_time"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:id="@+id/text_view_time"
         android:gravity="end|bottom"
+        android:textColor="@android:color/white"
         android:textSize="12sp" />
 </LinearLayout>

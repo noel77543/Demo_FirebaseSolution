@@ -26,6 +26,27 @@ public class MyAuthenticationCenter {
 
     }
 
+
+    //---------
+
+    /***
+     * 取得user ID
+     */
+    public String getUserId() {
+        return firebaseAuth.getCurrentUser().getUid();
+    }
+
+    //----------
+
+    /***
+     * 取得email
+     */
+
+    public String getEmail() {
+        return firebaseAuth.getCurrentUser().getEmail();
+    }
+
+
     //-----------
 
     /***
