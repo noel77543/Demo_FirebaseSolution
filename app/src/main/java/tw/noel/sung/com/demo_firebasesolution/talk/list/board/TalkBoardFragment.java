@@ -1,11 +1,9 @@
 package tw.noel.sung.com.demo_firebasesolution.talk.list.board;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,18 +13,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import tw.noel.sung.com.demo_firebasesolution.R;
@@ -34,6 +22,7 @@ import tw.noel.sung.com.demo_firebasesolution.login.LoginActivity;
 import tw.noel.sung.com.demo_firebasesolution.talk.list.board.adapter.TalkBoardAdapter;
 import tw.noel.sung.com.demo_firebasesolution.talk.list.board.model.Board;
 import tw.noel.sung.com.demo_firebasesolution.talk.list.model.UserList;
+import tw.noel.sung.com.demo_firebasesolution.util.TimeUtil;
 import tw.noel.sung.com.demo_firebasesolution.util.base.BasePageFragment;
 import tw.noel.sung.com.demo_firebasesolution.util.firebase.authentication.MyAuthenticationCenter;
 import tw.noel.sung.com.demo_firebasesolution.util.firebase.database.MyFirebaseDataBaseCenter;
@@ -51,12 +40,14 @@ public class TalkBoardFragment extends BasePageFragment implements ValueEventLis
     @BindView(R.id.button_sent)
     Button buttonSent;
 
+    private TimeUtil timeUtil;
     private UserList.RoomsBean roomsBean;
     private MyAuthenticationCenter myAuthenticationCenter;
     private MyFirebaseDataBaseCenter myFirebaseDataBaseCenter;
     private DatabaseReference databaseReference;
     private TalkBoardAdapter talkBoardAdapter;
     private ArrayList<Board> boards;
+    private String roomId;
     //------------
 
     @Override
@@ -69,14 +60,15 @@ public class TalkBoardFragment extends BasePageFragment implements ValueEventLis
     @Override
     protected void init() {
         roomsBean = getArguments().getParcelable("data");
-
-        talkBoardAdapter = new TalkBoardAdapter(activity);
+        roomId = roomsBean.getRoomId();
+        timeUtil = new TimeUtil();
         myFirebaseDataBaseCenter = new MyFirebaseDataBaseCenter();
         myAuthenticationCenter = new MyAuthenticationCenter(activity);
+        talkBoardAdapter = new TalkBoardAdapter(activity, myAuthenticationCenter.getUserId());
         talkBoardAdapter.setOnItemClickListener(this);
         recyclerView.setAdapter(talkBoardAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        databaseReference = myFirebaseDataBaseCenter.getDatabaseReference().child("rooms").child(myAuthenticationCenter.getUserId()).child("board");
+        databaseReference = myFirebaseDataBaseCenter.getDatabaseReference().child("rooms").child(roomId).child("board");
     }
 
 
@@ -103,8 +95,9 @@ public class TalkBoardFragment extends BasePageFragment implements ValueEventLis
         //已登入
         if (myAuthenticationCenter.isLogin()) {
             String message = editText.getText().toString();
-            if (message.length() > 0) {
-                myFirebaseDataBaseCenter.sendMessage(databaseReference, new Board(myAuthenticationCenter.getUserId(), message, myAuthenticationCenter.getEmail(), ""), boards == null ? 0 : boards.size());
+            if (message.trim().length() > 0) {
+                editText.setText("");
+                myFirebaseDataBaseCenter.sendMessage(roomId,new Board(myAuthenticationCenter.getUserId(), message, myAuthenticationCenter.getEmail(), timeUtil.getCurrentTime()), boards == null ? 0 : boards.size());
             }
         } else {
             startActivity(new Intent(activity, LoginActivity.class));

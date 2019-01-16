@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="3dp"
     android:background="@color/room_list_bg"
     android:orientation="vertical"
-    android:padding="3dp">
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/text_view_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:gravity="start|center_vertical"
         android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/text_view_message"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/text_view_time"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:gravity="end|bottom"
         android:textColor="@android:color/white"

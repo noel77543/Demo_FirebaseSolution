@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tw.noel.sung.com.demo_firebasesolution.R;
 import tw.noel.sung.com.demo_firebasesolution.talk.list.model.User;
+import tw.noel.sung.com.demo_firebasesolution.util.TimeUtil;
 import tw.noel.sung.com.demo_firebasesolution.util.firebase.database.MyFirebaseDataBaseCenter;
 
 public class CreateRoomDialog extends Dialog {
@@ -28,6 +29,7 @@ public class CreateRoomDialog extends Dialog {
     Button buttonComplete;
 
     private String myID;
+    private TimeUtil timeUtil;
     private OnTalkRoomCreateListener onTalkRoomCreateListener;
 
     public CreateRoomDialog(@NonNull Context context, String myID) {
@@ -35,22 +37,40 @@ public class CreateRoomDialog extends Dialog {
         setContentView(R.layout.dialog_create_room);
         ButterKnife.bind(this);
         this.myID = myID;
+        timeUtil = new TimeUtil();
         textViewMine.setText(myID);
     }
 
     //--------
     @OnClick(R.id.button_complete)
     public void onViewClicked() {
-        ArrayList<User> users = new ArrayList<>();
-        User user1 = new User(myID, MyFirebaseDataBaseCenter._TYPE_HOMEOWNER);
-        User user2 = new User(editTextAgent.getText().toString(), MyFirebaseDataBaseCenter._TYPE_AGENT);
-        User user3 = new User(editTextGuest.getText().toString(), MyFirebaseDataBaseCenter._TYPE_GUEST);
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
-        onTalkRoomCreateListener.onTalkRoomCreate(users);
-        dismiss();
+
+        String guestID = editTextGuest.getText().toString();
+        String agentID = editTextAgent.getText().toString();
+
+        if (isCheckGuest(guestID)) {
+
+            ArrayList<User> users = new ArrayList<>();
+            users.add(new User(myID, MyFirebaseDataBaseCenter._TYPE_HOMEOWNER,timeUtil.getCurrentTime()));
+            if (agentID.length() > 0) {
+                users.add(new User(agentID, MyFirebaseDataBaseCenter._TYPE_AGENT,timeUtil.getCurrentTime()));
+            }
+            users.add(new User(guestID, MyFirebaseDataBaseCenter._TYPE_GUEST,timeUtil.getCurrentTime()));
+            onTalkRoomCreateListener.onTalkRoomCreate(users);
+            dismiss();
+        }
     }
+
+    //---------
+
+    private boolean isCheckGuest(String guestID) {
+        boolean isInput = guestID.length() > 0;
+        if (!isInput) {
+            editTextGuest.setError("必填欄位");
+        }
+        return isInput;
+    }
+
 
     //---------
 

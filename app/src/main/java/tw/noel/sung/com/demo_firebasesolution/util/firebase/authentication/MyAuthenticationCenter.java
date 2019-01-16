@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import tw.noel.sung.com.demo_firebasesolution.util.application.FirebaseSolutionApplication;
 
@@ -23,7 +24,6 @@ public class MyAuthenticationCenter {
     public MyAuthenticationCenter(Context context) {
         this.context = context;
         firebaseAuth = FirebaseSolutionApplication.firebaseAuth;
-
     }
 
 

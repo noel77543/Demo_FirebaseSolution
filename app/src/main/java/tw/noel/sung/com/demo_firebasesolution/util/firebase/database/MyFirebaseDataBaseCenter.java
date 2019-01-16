@@ -35,9 +35,10 @@ public class MyFirebaseDataBaseCenter {
     }
 
     private DatabaseReference databaseReference;
-
     public MyFirebaseDataBaseCenter() {
         databaseReference = FirebaseSolutionApplication.databaseReference;
+
+
     }
 
     public DatabaseReference getDatabaseReference() {
@@ -99,27 +100,25 @@ public class MyFirebaseDataBaseCenter {
     //-------------
 
     /***
-     * 在所有房間列表建立全新的房間病定義房間成員身份
+     * 在所有房間列表建立全新的房間並定義房間成員身份
      */
     private void buildRoom(String roomId, ArrayList<User> users) {
         DatabaseReference childDatabaseReference = databaseReference.child("rooms").child(roomId);
-
-        //建立一個空的model 聊天版
-        childDatabaseReference.child("board").child("0").setValue(new Board("", "", "", ""));
         for (int i = 0; i < users.size(); i++) {
             childDatabaseReference.child("users").child(String.valueOf(i)).setValue(users.get(i));
         }
-
-
     }
 
     //------------
+
     /***
      * 發送訊息
      */
 
-    public void sendMessage(DatabaseReference childDatabaseReference,Board board, int index) {
-        childDatabaseReference.child(String.valueOf(index)).setValue(board);
+    public void sendMessage(String roomId, Board board, int index) {
+        databaseReference = FirebaseSolutionApplication.databaseReference;
+        DatabaseReference childDatabaseReference = databaseReference.child("rooms").child(roomId).child("board").child(String.valueOf(index));
+        childDatabaseReference.setValue(board);
     }
 
 
@@ -140,8 +139,6 @@ public class MyFirebaseDataBaseCenter {
     public void removeValueEventListener(ValueEventListener valueEventListener) {
         databaseReference.removeEventListener(valueEventListener);
     }
-
-
 
 
     //--------------

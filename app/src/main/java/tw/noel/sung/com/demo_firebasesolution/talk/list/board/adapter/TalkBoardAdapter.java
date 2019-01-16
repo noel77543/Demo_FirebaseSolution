@@ -4,9 +4,11 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,9 +26,11 @@ public class TalkBoardAdapter extends RecyclerView.Adapter<TalkBoardAdapter.View
     private ArrayList<Board> boards;
     private LayoutInflater layoutInflater;
     private OnItemClickListener onItemClickListener;
+    private String myID;
     //-------
 
-    public TalkBoardAdapter(Context context) {
+    public TalkBoardAdapter(Context context, String myID) {
+        this.myID = myID;
         layoutInflater = LayoutInflater.from(context);
         boards = new ArrayList<>();
     }
@@ -34,7 +38,7 @@ public class TalkBoardAdapter extends RecyclerView.Adapter<TalkBoardAdapter.View
     //-------
 
     public void setData(ArrayList<Board> boards) {
-        if(boards != null){
+        if (boards != null) {
             this.boards = boards;
             notifyDataSetChanged();
         }
@@ -56,6 +60,17 @@ public class TalkBoardAdapter extends RecyclerView.Adapter<TalkBoardAdapter.View
         viewHolder.textViewMessage.setText(board.getMessage());
         viewHolder.textViewName.setText(board.getName());
         viewHolder.textViewTime.setText(board.getTime());
+
+
+        //你
+        if (board.getUserId().equals(myID)) {
+           viewHolder.linearLayout.setGravity(Gravity.END);
+        }
+        //其他人
+        else {
+            viewHolder.linearLayout.setGravity(Gravity.START);
+        }
+
     }
     //-------
 
@@ -73,6 +88,8 @@ public class TalkBoardAdapter extends RecyclerView.Adapter<TalkBoardAdapter.View
         TextView textViewMessage;
         @BindView(R.id.text_view_time)
         TextView textViewTime;
+        @BindView(R.id.linear_layout)
+        LinearLayout linearLayout;
 
         ViewHolder(View view) {
             super(view);
