@@ -35,6 +35,7 @@ public class MyFirebaseDataBaseCenter {
     }
 
     private DatabaseReference databaseReference;
+
     public MyFirebaseDataBaseCenter() {
         databaseReference = FirebaseSolutionApplication.databaseReference;
 
@@ -141,34 +142,9 @@ public class MyFirebaseDataBaseCenter {
     }
 
 
-    //--------------
+    //---------------------
 
 
-//    @Override
-//    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//        this.dataSnapshot = dataSnapshot;
 
-//        Talk talk = dataSnapshot.getValue(Talk.class);
-//        Log.e("TTT", talk.getRooms().get(0).getRoomId());
-
-//        onFirebaseDataChangeListener.onFirebaseDataChange(dataSnapshot.getValue(Talk.class));
-//    }
-
-    //----------
-
-//    @Override
-//    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//    }
-
-
-//    //-----------------
-//    public interface OnFirebaseDataChangeListener {
-//        void onFirebaseDataChange(Navigation navigation);
-//    }
-//
-//    public void setOnFirebaseDataChangeListener(OnFirebaseDataChangeListener onFirebaseDataChangeListener) {
-//        this.onFirebaseDataChangeListener = onFirebaseDataChangeListener;
-//    }
 }
 

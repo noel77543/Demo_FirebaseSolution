@@ -3,7 +3,6 @@ package tw.noel.sung.com.demo_firebasesolution.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +13,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tw.noel.sung.com.demo_firebasesolution.R;
 import tw.noel.sung.com.demo_firebasesolution.login.actionbar.ActionBarController;
-import tw.noel.sung.com.demo_firebasesolution.main.MainActivity;
+import tw.noel.sung.com.demo_firebasesolution.talk.TalkActivity;
 import tw.noel.sung.com.demo_firebasesolution.util.dialog.ForgetMailDialog;
-import tw.noel.sung.com.demo_firebasesolution.util.firebase.analytics.MyFirebaseEventCenter;
 import tw.noel.sung.com.demo_firebasesolution.util.firebase.authentication.MyAuthenticationCenter;
 import tw.noel.sung.com.demo_firebasesolution.util.firebase.database.MyFirebaseDataBaseCenter;
 
@@ -106,7 +104,7 @@ public class LoginActivity extends FragmentActivity implements MyAuthenticationC
         String message;
         if (isSuccess) {
             message = "登入成功";
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, TalkActivity.class));
             finish();
         } else {
             message = "登入失敗";
